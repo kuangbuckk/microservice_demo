@@ -7,6 +7,7 @@ import buck.accountservices.service.AccountService;
 import buck.accountservices.service.client.NotificationService;
 import buck.accountservices.service.client.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Qualifier("buck.accountservices.service.client.StatisticService")
     @Autowired
     private StatisticService statisticService;
+
+    @Qualifier("buck.accountservices.service.client.NotificationService")
     @Autowired
     private NotificationService notificationService;
 
