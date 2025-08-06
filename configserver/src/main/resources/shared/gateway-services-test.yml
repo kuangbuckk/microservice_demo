@@ -1,0 +1,34 @@
+server:
+  port: 3010
+
+spring:
+  cloud:
+    config:
+      fail-fast: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true #fetch from Eureka Server
+          lower-case-service-id: true
+      routes:
+        - id: account-services
+          uri: lb://account-services
+          predicates:
+            - Path=/account/**
+        - id: statistic-services
+          uri: lb://statistic-services
+          predicates:
+            - Path=/statistic/**
+        - id: notification-services
+          uri: lb://notification-services
+          predicates:
+            - Path=/notification/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+  endpoint:
+    gateway:
+      enabled: true
