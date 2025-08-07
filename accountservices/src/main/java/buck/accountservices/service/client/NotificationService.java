@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "notification-service", url = "http://localhost:3006/notification/", fallback = NotificationServiceImpl.class)
+@FeignClient(name = "notification-service", fallback = NotificationServiceImpl.class)
 public interface NotificationService {
     @PostMapping("/create")
     public void sendNotification(@RequestBody MessageDTO messageDTO) throws Exception;

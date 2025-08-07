@@ -3,6 +3,7 @@ package jmaster.io.notificationservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.kafka.support.converter.JsonMessageConverter;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -22,8 +23,8 @@ public class NotificationserviceApplication {
         return new JavaMailSenderImpl();
     }
 
-//    @Bean
-//    JsonMessageConverter converter() {
-//        return new JsonMessageConverter();
-//    }
+    @Bean
+    JsonMessageConverter converter() {
+        return new JsonMessageConverter();
+    }
 }

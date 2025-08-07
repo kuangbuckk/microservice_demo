@@ -7,6 +7,8 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.cloud.gateway.route.RouteLocator;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class GatewayServicesApplication {
@@ -15,20 +17,23 @@ public class GatewayServicesApplication {
 		SpringApplication.run(GatewayServicesApplication.class, args);
 	}
 
-//	@Bean
-//	public RouteLocator routeLocator(RouteLocatorBuilder routeLocatorBuilder){
-//		return routeLocatorBuilder.routes()
-//				.route(p -> p.path("/account/**")
-////						.filters()
-////						lb: Load balancer, tell gateway to do client side load balancer with the help of
-////						spring cloud balancer
-//						.uri("lb://ACCOUNT-SERVICES"))
-//				.route(p -> p.path("/buck/statistics/**")
-//						.filters(f -> f.rewritePath("/buck/statistics/(?<segment>.*)", "/${segment}"))
-//						.uri("lb://STATISTIC-SERVICES"))
-//				.route(p -> p.path("/buck/notification/**")
-//						.filters(f -> f.rewritePath("/buck/notification/(?<segment>.*)", "/${segment}"))
-//						.uri("lb://NOTIFICATION-SERVICES"))
-//				.build();
-//	}
+	@Bean
+	public RouteLocator routeLocator(RouteLocatorBuilder routeLocatorBuilder){
+		return routeLocatorBuilder.routes()
+				.route(p -> p.path("/buck/accounts/**")
+						.filters(f -> f.rewritePath("/buck/accounts/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+//						lb: Load balancer, tell gateway to do client side load balancer with the help of
+//						spring cloud balancer
+						.uri("lb://ACCOUNT-SERVICES"))
+				.route(p -> p.path("/buck/statistics/**")
+						.filters(f -> f.rewritePath("/buck/statistics/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+						.uri("lb://STATISTIC-SERVICES"))
+				.route(p -> p.path("/buck/notification/**")
+						.filters(f -> f.rewritePath("/buck/notification/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+						.uri("lb://NOTIFICATION-SERVICES"))
+				.build();
+	}
 }

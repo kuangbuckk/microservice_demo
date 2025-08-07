@@ -1,5 +1,6 @@
 package buck.accountservices;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,16 +19,16 @@ public class AccountservicesApplication {
 		SpringApplication.run(AccountservicesApplication.class, args);
 	}
 
-//	@Bean
-//	// topic name, num of partitions, num of replication
-//	NewTopic notification(){
-//		return new NewTopic("notification", 2, (short) 3);
-//	}
-//
-//	@Bean
-//	NewTopic statistic(){
-//		return new NewTopic("statistic", 1, (short) 3);
-//	}
+	@Bean
+	// topic name, num of partitions, num of replication
+	NewTopic notification(){
+		return new NewTopic("notification", 2, (short) 3);
+	}
+
+	@Bean
+	NewTopic statistic(){
+		return new NewTopic("statistic", 1, (short) 3);
+	}
 
 	@Bean
 	public ModelMapper modelMapper(){
